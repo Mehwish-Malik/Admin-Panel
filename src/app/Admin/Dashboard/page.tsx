@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
 import ProtectedRoute from "@/app/Components/Protected/page";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
