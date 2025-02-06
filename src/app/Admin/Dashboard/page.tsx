@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
-import ProtectedRoute from "@/app/Components/Protected/page";
+import ProtectedRoute from "@/app/Components/ProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Image from "next/image";
 interface Order {
   _id: string;
   firstName: string;
@@ -101,6 +101,7 @@ export default function AdminDashboard() {
     <ProtectedRoute>
       <div className="flex flex-col h-screen bg-gray-100">
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+        
         {/* Navbar */}
         <nav className="bg-blue-600 text-white p-4 shadow-lg flex justify-between">
           <h2 className="text-2xl font-bold">Admin Dashboard</h2>
@@ -139,7 +140,7 @@ export default function AdminDashboard() {
                 {filteredOrders.map((order) => (
                   <React.Fragment key={order._id}>
                     <tr
-                      className="cursor-pointer hover:bg-blue-100 transition-all "
+                      className="cursor-pointer hover:bg-blue-100 transition-all"
                       onClick={() => toggleOrderDetails(order._id)}
                     >
                       <td>{order._id}</td>
@@ -170,6 +171,39 @@ export default function AdminDashboard() {
                         </button>
                       </td>
                     </tr>
+
+                    {/* Order Details */}
+                    {selectedOrderId === order._id && (
+                      <tr>
+                        <td colSpan={7} className="p-4 bg-gray-50">
+                          <div className="text-gray-700">
+                            <h3 className="font-bold">Order Details</h3>
+                            <p><strong>First Name:</strong> {order.firstName}</p>
+                            <p><strong>Last Name:</strong> {order.lastName}</p>
+                            <p><strong>Phone:</strong> {order.phone}</p>
+                            <p><strong>Email:</strong> {order.email}</p>
+                            <p><strong>Address:</strong> {order.address}</p>
+                            <p><strong>City:</strong> {order.city}</p>
+                            <p><strong>Zip Code:</strong> {order.zipCode}</p>
+                            <p><strong>Discount:</strong> {order.discount}</p>
+                            <p><strong>Status:</strong> {order.status}</p>
+                            <p><strong>Cart Items:</strong></p>
+                            <ul>
+                              {order.cartItems.map((item, index) => (
+                                <li key={index}>
+                                  <p>{item.productName}</p>
+                                  <Image
+                                    src={item.image}
+                                    alt={item.productName}
+                                    className="w-16 h-16"
+                                  />
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
                   </React.Fragment>
                 ))}
               </tbody>

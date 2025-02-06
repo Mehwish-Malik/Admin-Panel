@@ -13,7 +13,7 @@ export default function AdminLogin() {
     e.preventDefault();
 
 
-    if (email === "wish007@gmail.com" && password === "Malik") {
+    if (email === "malik.mehwish0078@gmail.com" && password === "Malik") {
       localStorage.setItem("isLoggedIn", "true");
       router.push("/Admin/Dashboard");
     } else {
